@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract class Builder{
+    public abstract void add(int liczba, char opcja);
     public abstract void addSegments(int liczba); //wood block
     public abstract void addSegmentsBlock(int liczba); // solid block
     public abstract void addSegmentsBlockV(int liczba); // jump block
@@ -17,12 +18,33 @@ abstract class Builder{
 }
 
 public class NormalBuilder extends Builder{
-    private final int TILESIZE = 32;
-    private List<Segment> plansza;
-    private int x=0, y=0;
+    protected final int TILESIZE = 32;
+    protected List<Segment> plansza;
+    protected int x=0, y=0;
 
     public NormalBuilder(){
         plansza = new ArrayList<>();
+    }
+
+    @Override
+    public void add(int liczba, char opcja) {
+        switch (opcja) {
+            case 'X':
+                addSegmenstAir(liczba);
+                break;
+            case 'A':
+                addSegmentsBlock(liczba);
+                break;
+            case 'B':
+                addSegmentsBlockV(liczba);
+                break;
+            case 'C':
+                addSegments(liczba);
+                break;
+            case 'G':
+                addSegmentsAnim(liczba);
+                break;
+        }
     }
     @Override
     public void addSegments(int liczba) {
