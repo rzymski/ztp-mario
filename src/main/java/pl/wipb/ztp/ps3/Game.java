@@ -84,7 +84,7 @@ class Game extends JPanel {
 //            return null;
 //        }
 //    }
-    private void stworzPlansze(String plik, Builder b) {
+    private void stworzPlansze(String plik, Builder builder) {
         BufferedReader br = null;
         try {
             InputStream pFile = getClass().getResourceAsStream(plik);
@@ -92,7 +92,7 @@ class Game extends JPanel {
             String linia;
             //int x;
             //int y = 4;
-            b.setY(4);
+            builder.setY(4);
             int liczba;
             int znaki;
             char znak;
@@ -100,14 +100,14 @@ class Game extends JPanel {
             char cyfra2;
             while ((linia = br.readLine()) != null) {
                 //x = 4;
-                b.setX(4);
+                builder.setX(4);
                 znaki = 0;
                 while ((linia.length() - znaki) >= 3) {
                     znak = linia.charAt(znaki++);
                     cyfra1 = linia.charAt(znaki++);
                     cyfra2 = linia.charAt(znaki++);
                     liczba = (cyfra1 - '0') * 10 + (cyfra2 - '0');
-                    b.add(liczba, znak);
+                    builder.add(liczba, znak);
 //                    switch (znak) {
 //                        case 'X':
 //                            b.addSegmenstAir(liczba);
@@ -126,7 +126,7 @@ class Game extends JPanel {
 //                            break;
 //                    }
                 }
-                b.changeHight();
+                builder.changeHight();
             }
             br.close();
         }catch (IOException e) {
@@ -140,10 +140,10 @@ class Game extends JPanel {
         setFocusable(true);
         //plansza = stworzPlansze(plik);
 
-        Builder b = new ModifiedBuilder();
-        //Builder b = new NormalBuilder();
-        stworzPlansze(plik, b);
-        plansza = b.getResult();
+        //Builder builder = new ModifiedBuilder();
+        Builder builder = new NormalBuilder();
+        stworzPlansze(plik, builder);
+        plansza = builder.getResult();
 
 
 
